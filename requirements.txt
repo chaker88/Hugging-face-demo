@@ -1,4 +1,4 @@
 transformers==4.44.0
 torch
-gradio
+gradio==5.29.0
 sentencepiece
