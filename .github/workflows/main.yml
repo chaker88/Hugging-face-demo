@@ -1,11 +1,11 @@
-name: CI
+name: CI/CD
 
 on:
   push:
     branches: [main]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,3 +21,10 @@ jobs:
 
       - name: Test import
         run: python -c "from transformers import pipeline; print('OK')"
+
+      - name: Push to Hugging Face Spaces
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git remote add space https://huggingface.co/spaces/chaker88/demo || true
+          git push https://chaker88:$HF_TOKEN@huggingface.co/spaces/chaker88/demo main --force
